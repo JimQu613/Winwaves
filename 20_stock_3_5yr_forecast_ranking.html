@@ -1,0 +1,383 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0;font-family:var(--font-sans)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.fbtn{font-size:11px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.fbtn.active,.fbtn:hover{background:var(--color-background-info);color:var(--color-text-info);border-color:transparent}
+.toggle-row{display:flex;gap:10px;align-items:center;margin-bottom:16px;font-size:12px;color:var(--color-text-secondary)}
+.tgl{display:flex;gap:6px}
+.tgl button{font-size:11px;padding:3px 10px;border-radius:4px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer}
+.tgl button.on{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+.row{display:flex;align-items:stretch;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer;transition:background .1s}
+.row:hover{background:var(--color-background-secondary);margin:0 -8px;padding-left:8px;padding-right:8px;border-radius:6px}
+.rank{width:28px;text-align:center;font-size:13px;font-weight:500;color:var(--color-text-tertiary);flex-shrink:0;padding-top:2px}
+.rank.t3{color:var(--color-text-warning)}
+.info{flex:1;min-width:0}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.ticker-lbl{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.name-lbl{font-size:12px;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badges{display:flex;gap:4px;flex-wrap:wrap}
+.badge{font-size:10px;padding:2px 7px;border-radius:10px;white-space:nowrap}
+.cat-ai{background:var(--color-background-info);color:var(--color-text-info)}
+.cat-q{background:#EEEDFE;color:#534AB7}
+.cat-ev{background:#FAC775;color:#633806}
+.cat-energy{background:#EAF3DE;color:#3B6D11}
+.cat-semi{background:#FAECE7;color:#993C1D}
+.cat-bio{background:#FBEAF0;color:#993556}
+.cat-ad{background:#E1F5EE;color:#0F6E56}
+.risk-low{background:var(--color-background-success);color:var(--color-text-success)}
+.risk-mid{background:var(--color-background-warning);color:var(--color-text-warning)}
+.risk-high{background:var(--color-background-danger);color:var(--color-text-danger)}
+.bar-wrap{margin:6px 0 2px}
+.bar-bg{background:var(--color-background-tertiary);border-radius:3px;height:7px;width:100%;overflow:hidden}
+.bar-fg{height:100%;border-radius:3px;transition:width .6s ease}
+.meta{display:flex;gap:12px;margin-top:4px;font-size:11px;color:var(--color-text-tertiary)}
+.upside{text-align:right;min-width:72px;flex-shrink:0}
+.upside-3{font-size:18px;font-weight:500;color:var(--color-text-success)}
+.upside-5{font-size:12px;color:var(--color-text-tertiary);margin-top:2px}
+.detail{display:none;background:var(--color-background-secondary);border-radius:8px;padding:10px 12px;margin:6px 0 4px;font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.detail.open{display:block}
+.detail strong{color:var(--color-text-primary);font-weight:500}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;font-size:11px}
+.leg span{display:flex;align-items:center;gap:4px;color:var(--color-text-secondary)}
+.leg-dot{width:10px;height:10px;border-radius:2px}
+.horizon{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--color-text-secondary);margin-bottom:14px}
+.horizon button{font-size:11px;padding:3px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;cursor:pointer;color:var(--color-text-secondary)}
+.horizon button.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:transparent}
+.disclaimer{font-size:10px;color:var(--color-text-tertiary);margin-top:18px;line-height:1.5;border-top:0.5px solid var(--color-border-tertiary);padding-top:10px}
+</style>
+
+<div class="wrap">
+
+<div class="horizon">
+  <span>Horizon:</span>
+  <button class="on" onclick="setHorizon(3,this)">3 Years</button>
+  <button onclick="setHorizon(5,this)">5 Years</button>
+</div>
+
+<div class="filters">
+  <button class="fbtn active" onclick="filterCat('all',this)">All 20</button>
+  <button class="fbtn" onclick="filterCat('AI Infrastructure',this)">AI Infra</button>
+  <button class="fbtn" onclick="filterCat('Quantum',this)">Quantum</button>
+  <button class="fbtn" onclick="filterCat('Semiconductor',this)">Semis</button>
+  <button class="fbtn" onclick="filterCat('Energy',this)">Energy</button>
+  <button class="fbtn" onclick="filterCat('EV/Auto',this)">EV/Auto</button>
+  <button class="fbtn" onclick="filterCat('Biotech',this)">Biotech</button>
+</div>
+
+<div class="leg">
+  <span><span class="leg-dot cat-ai"></span>AI Infra</span>
+  <span><span class="leg-dot cat-q"></span>Quantum</span>
+  <span><span class="leg-dot cat-semi"></span>Semis</span>
+  <span><span class="leg-dot cat-energy"></span>Energy</span>
+  <span><span class="leg-dot cat-ev"></span>EV/Auto</span>
+  <span><span class="leg-dot cat-bio"></span>Biotech</span>
+  <span><span class="leg-dot cat-ad"></span>Ad-Tech</span>
+  <span class="leg-dot risk-high" style="width:10px;height:10px;border-radius:50%"></span><span style="color:var(--color-text-secondary)">High Risk &nbsp; </span>
+  <span class="leg-dot risk-mid" style="width:10px;height:10px;border-radius:50%"></span><span style="color:var(--color-text-secondary)">Med Risk &nbsp;</span>
+  <span class="leg-dot risk-low" style="width:10px;height:10px;border-radius:50%"></span><span style="color:var(--color-text-secondary)">Lower Risk</span>
+</div>
+
+<div id="list"></div>
+
+<div class="disclaimer">⚠️ This is speculative analysis for educational purposes only — not financial advice. All projections are scenario-based estimates combining analyst consensus, fundamental signals, and macro thesis judgment. Markets are unpredictable. Past performance does not guarantee future results. Always conduct independent research before any investment decision.</div>
+
+</div>
+
+<script>
+let horizon = 3;
+let activeCat = 'all';
+
+const stocks = [
+  {
+    rank:1, ticker:'CRWV', name:'CoreWeave',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'High', riskCls:'risk-high',
+    up3:320, up5:820,
+    bar3:95, bar5:100,
+    color:'#378ADD',
+    thesis:'Pure-play AI cloud for AI workloads. Revenue surged 420% YoY. Exclusively serves NVIDIA architecture — often first to deploy new GPUs. Ranked #1 AI cloud by SemiAnalysis above AWS/Azure. Plans to acquire Core Scientific for vertical integration.',
+    catalyst:'NVIDIA dependency + $4B debt load is key risk. If AI capex cycle holds, this could be the decade\'s biggest infrastructure winner.',
+    current:'~$40 (Mar 2026)',
+    analysts:'Motley Fool projects $340B market cap by 2028 = +440% from current levels.'
+  },
+  {
+    rank:2, ticker:'NBIS', name:'Nebius Group',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'High', riskCls:'risk-high',
+    up3:200, up5:480,
+    bar3:90, bar5:96,
+    color:'#7F77DD',
+    thesis:'Europe\'s leading AI neocloud. Backed by NVIDIA ($2B stake) and a signed $27B deal with Meta. Building GPU clusters + full-stack AI cloud. Revenue growing explosively from a small base. BofA target $150, DA Davidson $200.',
+    catalyst:'$27B Meta deal is transformational validation. Nvidia partnership gives GPU access advantage. Analyst 12-mo avg target: ~$167 (+65% from current $100).',
+    current:'~$100 (Mar 2026)',
+    analysts:'Analyst avg target $166. BofA rates Strong Buy. DA Davidson raised to $200.'
+  },
+  {
+    rank:3, ticker:'PLTR', name:'Palantir Technologies',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'Medium', riskCls:'risk-mid',
+    up3:150, up5:300,
+    bar3:85, bar5:92,
+    color:'#1D9E75',
+    thesis:'AIP platform is the enterprise AI OS. Government + commercial flywheel. S&P 500 inclusion. Recurring AI software revenue expanding fast. 400% return in past year means valuation is stretched — but software monopolies command premiums.',
+    catalyst:'Could be worth more than Palantir itself by 2028 per Motley Fool if AIP locks in enterprise moat. Risk: valuation at 200x+ forward earnings.',
+    current:'~$96 (Mar 2026)',
+    analysts:'Consensus: strong buy. Bull case $500 by 2028. Bear case: 50%+ correction from overvaluation.'
+  },
+  {
+    rank:4, ticker:'VRT', name:'Vertiv Holdings',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'Medium', riskCls:'risk-mid',
+    up3:130, up5:280,
+    bar3:82, bar5:90,
+    color:'#D85A30',
+    thesis:'Data center cooling & power is the unglamorous but critical layer of AI. Every AI server needs thermal management. Vertiv is the dominant player. Trades at 37x forward earnings — elevated but justified by structural demand growth.',
+    catalyst:'AI server heat density (Blackwell GPUs run very hot) creates secular demand. Zacks rates Hold but calls it a compelling growth story with strong industry tailwinds.',
+    current:'~$73 (Mar 2026)',
+    analysts:'VRT +180% in past 2 years. Analysts see sustained high-30% revenue growth through 2027.'
+  },
+  {
+    rank:5, ticker:'ANET', name:'Arista Networks',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'Low', riskCls:'risk-low',
+    up3:95, up5:210,
+    bar3:78, bar5:86,
+    color:'#534AB7',
+    thesis:'High-speed Ethernet switching is the nervous system of AI data centers. Arista has 40%+ market share. CEO raised 2026 guidance to 25% growth ($11.25B). "Unprecedented networking demand." Upgraded to Strong Buy with $210 target.',
+    catalyst:'AI networking at production scale per management. $3.25B in AI center revenue targeted 2026. Current price $120 vs $177 analyst avg target = 47% upside.',
+    current:'~$121 (Mar 2026)',
+    analysts:'Analyst avg target $177. High estimate $220. 26 buy ratings, 0 sell.'
+  },
+  {
+    rank:6, ticker:'AVGO', name:'Broadcom',
+    cat:'Semiconductor', catCls:'cat-semi', risk:'Low', riskCls:'risk-low',
+    up3:90, up5:200,
+    bar3:76, bar5:84,
+    color:'#BA7517',
+    thesis:'Custom ASIC chips for hyperscalers (Google, Meta, Apple) plus VMware integration. AI networking + custom silicon is a massive diversification away from commodity chips. Hyper-reliable compounder with growing AI revenue mix.',
+    catalyst:'VMware acquisition integration complete. AI ASIC revenue projected to double by 2027. Dividend grower with buybacks.',
+    current:'~$215 (Mar 2026)',
+    analysts:'Wide analyst consensus: Buy. Growing AI silicon TAM supports continued multi-year outperformance.'
+  },
+  {
+    rank:7, ticker:'IONQ', name:'IonQ',
+    cat:'Quantum', catCls:'cat-q', risk:'High', riskCls:'risk-high',
+    up3:150, up5:400,
+    bar3:75, bar5:85,
+    color:'#9F99EC',
+    thesis:'Leading public quantum computer company. Trapped-ion tech is most commercially viable architecture. Q4 2025 revenue +429% YoY. $3.3B cash. Acquiring SkyWater for vertical chip manufacturing. Government contracts via "Golden Dome" missile defense + USAF.',
+    catalyst:'IonQ targets 2M qubit machine by 2030. Analyst median target $65 vs current $27. If quantum hits inflection, upside is 10x+. But losses are deep and growing.',
+    current:'~$27 (Mar 2026)',
+    analysts:'Median target $65 (134% upside). High target $100. Motley Fool bull case: $141 by 2030.'
+  },
+  {
+    rank:8, ticker:'CEG', name:'Constellation Energy',
+    cat:'Energy', catCls:'cat-energy', risk:'Low', riskCls:'risk-low',
+    up3:85, up5:180,
+    bar3:74, bar5:82,
+    color:'#3B6D11',
+    thesis:'Largest nuclear operator in the US. AI data centers need always-on clean power. Microsoft, Amazon and others are signing long-term power purchase agreements with Constellation. Regulatory tailwinds for nuclear restart. Clean baseload = premium pricing.',
+    catalyst:'Nuclear is the only 24/7 carbon-free power source at scale. AI data centers consuming 10x normal power = structural demand. Re-opening of Three Mile Island for Microsoft is the template.',
+    current:'~$220 (Mar 2026)',
+    analysts:'Analysts bullish on AI power demand thesis. Utility-grade earnings stability + AI growth optionality.'
+  },
+  {
+    rank:9, ticker:'TSMC', name:'TSMC',
+    cat:'Semiconductor', catCls:'cat-semi', risk:'Low', riskCls:'risk-low',
+    up3:75, up5:160,
+    bar3:70, bar5:79,
+    color:'#888780',
+    thesis:'All AI chips (NVIDIA, AMD, Apple, Google, Amazon) are manufactured by TSMC. 2nm process in production 2025. Irreplaceable in the global AI supply chain. Taiwan geopolitical risk is real but US fab expansion (Arizona) hedges it.',
+    catalyst:'Jensen Huang called out $1 trillion in Blackwell/Vera Rubin orders through 2027 at GTC. Every dollar of AI chip spend flows through TSMC first.',
+    current:'~$165 (Mar 2026)',
+    analysts:'Consensus Buy. Warren Buffett owned it briefly. Long-term compounder with geopolitical discount.'
+  },
+  {
+    rank:10, ticker:'APP', name:'AppLovin',
+    cat:'Ad-Tech', catCls:'cat-ad', risk:'Medium', riskCls:'risk-mid',
+    up3:120, up5:250,
+    bar3:68, bar5:76,
+    color:'#1D9E75',
+    thesis:'AI-driven mobile advertising optimization. By 2028, 70% of total ad spend expected via mobile. AppLovin\'s ML-powered AXON engine radically outperforms competitors. Strong earnings revision trend (+23% over 2 months). Zacks #1 Strong Buy.',
+    catalyst:'Moving into connected TV and e-commerce advertising. Revenue growing 80%+ YoY. Valuation stretched at 37x forward earnings but earnings are accelerating.',
+    current:'~$285 (Mar 2026)',
+    analysts:'Strong Buy consensus. High upside if CTV expansion succeeds. Risk: single-product dependence on mobile gaming.'
+  },
+  {
+    rank:11, ticker:'MU', name:'Micron Technology',
+    cat:'Semiconductor', catCls:'cat-semi', risk:'Medium', riskCls:'risk-mid',
+    up3:100, up5:220,
+    bar3:65, bar5:73,
+    color:'#D85A30',
+    thesis:'HBM3E memory is the fastest-growing component in AI chips. Every NVIDIA GB200 uses Micron HBM. Memory is supply-constrained and prices are rising. Micron is one of only 3 HBM suppliers globally (with SK Hynix and Samsung).',
+    catalyst:'Cyclical risk: memory cycles historically brutal. But AI HBM is a new secular demand driver that may smooth cycles. CNBC analysts named Micron as key AI play alongside Arista in March 2026.',
+    current:'~$90 (Mar 2026)',
+    analysts:'Analysts see 60-100% upside over 2 years on HBM ramp. Memory cycle timing is the key risk.'
+  },
+  {
+    rank:12, ticker:'APH', name:'Amphenol',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'Low', riskCls:'risk-low',
+    up3:70, up5:150,
+    bar3:62, bar5:70,
+    color:'#0F6E56',
+    thesis:'Connectors and interconnects for AI servers, data centers, defense. Every rack needs Amphenol cables. Invisible compounder — consistent 15-20% earnings growth for 20 years. AI data centers are 5-10x more cable-dense than traditional servers.',
+    catalyst:'AI server density = connector demand surge. Defense + automotive diversification. Low volatility, consistent dividend growth. The most boring but reliable name on this list.',
+    current:'~$65 (Mar 2026)',
+    analysts:'Steady institutional favorite. 15-20% CAGR expected through 2028 based on data center build-out cycle.'
+  },
+  {
+    rank:13, ticker:'SYM', name:'Symbotic',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'High', riskCls:'risk-high',
+    up3:110, up5:260,
+    bar3:60, bar5:68,
+    color:'#378ADD',
+    thesis:'AI-powered warehouse robotics. Walmart is its largest customer. Fully automated fulfillment centers with computer vision. High hardware+software integration makes switching costly. E-commerce growth = secular tailwind.',
+    catalyst:'Revenue trajectory explosive but heavily loss-making. Execution risk on large deployments. If Walmart scales nationally, Symbotic becomes a $50B+ company.',
+    current:'~$18 (Mar 2026)',
+    analysts:'High conviction bull case but execution-dependent. Risk of customer concentration in Walmart.'
+  },
+  {
+    rank:14, ticker:'AMAT', name:'Applied Materials',
+    cat:'Semiconductor', catCls:'cat-semi', risk:'Low', riskCls:'risk-low',
+    up3:65, up5:140,
+    bar3:58, bar5:66,
+    color:'#BA7517',
+    thesis:'Semiconductor equipment leader. Every AI chip fab expansion requires Applied Materials machines. Beneficiary of CHIPS Act subsidies. Equipment cycle typically lags chip demand by 12-18 months — acceleration expected 2026-2027.',
+    catalyst:'TSMC, Samsung, Intel, and GlobalFoundries all expanding capacity. US fab buildout provides multi-year equipment demand. Consistent high margins.',
+    current:'~$155 (Mar 2026)',
+    analysts:'Buy consensus. Semiconductor equipment cycle set to accelerate. 40-70% upside in next 2 years per street consensus.'
+  },
+  {
+    rank:15, ticker:'LLY', name:'Eli Lilly',
+    cat:'Biotech', catCls:'cat-bio', risk:'Low', riskCls:'risk-low',
+    up3:60, up5:130,
+    bar3:55, bar5:62,
+    color:'#993556',
+    thesis:'GLP-1 drugs (Mounjaro/Zepbound) are the fastest-growing drug class in history. $50B+ annual revenue by 2030. AI-powered drug discovery pipeline adds further optionality. Lilly is the largest pharmaceutical company by market cap globally.',
+    catalyst:'Manufacturing capacity is the bottleneck, not demand. Pipeline includes Alzheimer\'s, oncology. Weight loss drugs now showing cardiovascular benefits = massive expanded label.',
+    current:'~$790 (Mar 2026)',
+    analysts:'Consensus Buy. Bull case: $1,500+ by 2028 on GLP-1 market expansion. More defensive than tech names on this list.'
+  },
+  {
+    rank:16, ticker:'FSLR', name:'First Solar',
+    cat:'Energy', catCls:'cat-energy', risk:'Medium', riskCls:'risk-mid',
+    up3:55, up5:120,
+    bar3:50, bar5:58,
+    color:'#3B6D11',
+    thesis:'Only major US-manufactured thin-film solar panel maker. IRA subsidies provide structural advantage vs Chinese competitors. AI data centers committed to renewable power = direct customer. US supply chain security theme.',
+    catalyst:'Policy risk if IRA incentives are rolled back (key risk under current administration). But long-term solar demand is structural. Near-term uncertainty = opportunity.',
+    current:'~$140 (Mar 2026)',
+    analysts:'Policy-dependent but structurally sound. 50-120% upside in bull scenario. Short-term high risk.'
+  },
+  {
+    rank:17, ticker:'IREN', name:'IREN (Iris Energy)',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'High', riskCls:'risk-high',
+    up3:130, up5:320,
+    bar3:50, bar5:58,
+    color:'#7F77DD',
+    thesis:'Bitcoin miner pivoting to HPC/AI cloud. Cheap renewable energy in Canada/Texas = low-cost GPU compute. Similar pivot to APLD. AI cloud revenue growing fast. Small cap = high beta to AI infrastructure demand.',
+    catalyst:'Pivot thesis is sound but execution unproven at scale. Energy cost advantage vs CoreWeave is real. Stock highly volatile. High upside if pivot succeeds, deep loss if it doesn\'t.',
+    current:'~$8 (Mar 2026)',
+    analysts:'Speculative. Small market cap ($1B range) means high leverage to AI narrative. Watch revenue mix shift as key signal.'
+  },
+  {
+    rank:18, ticker:'RIVN', name:'Rivian',
+    cat:'EV/Auto', catCls:'cat-ev', risk:'High', riskCls:'risk-high',
+    up3:80, up5:180,
+    bar3:42, bar5:50,
+    color:'#D85A30',
+    thesis:'Amazon delivery van contract (100k units) provides revenue floor. VW partnership ($5.8B) validates software platform. Gen 2 R1 platform reducing costs dramatically. Gross profit positive since Q1 2024.',
+    catalyst:'Software-defined vehicle platform could attract more OEM partners. AI/autonomy optionality long-term. Risk: cash burn, macro EV slowdown, Tesla/legacy OEM competition.',
+    current:'~$12 (Mar 2026)',
+    analysts:'Speculative recovery play. $15-25 range in 3 years is realistic base case if gross margins scale.'
+  },
+  {
+    rank:19, ticker:'HUT', name:'Hut 8',
+    cat:'AI Infrastructure', catCls:'cat-ai', risk:'High', riskCls:'risk-high',
+    up3:90, up5:200,
+    bar3:38, bar5:46,
+    color:'#888780',
+    thesis:'Bitcoin miner turned AI/HPC data center operator. Energy + computing infrastructure. Lower profile than CoreWeave but similar pivot thesis. Benefits from same AI cloud demand tailwind.',
+    catalyst:'Similar to IREN — small cap, high volatility, high leverage to AI infrastructure narrative. Needs to demonstrate HPC revenue growth at scale to de-risk.',
+    current:'~$14 (Mar 2026)',
+    analysts:'Speculative. Success/failure hinges on successful pivot execution speed and energy cost advantages.'
+  },
+  {
+    rank:20, ticker:'RGTI', name:'Rigetti Computing',
+    cat:'Quantum', catCls:'cat-q', risk:'High', riskCls:'risk-high',
+    up3:80, up5:250,
+    bar3:30, bar5:40,
+    color:'#9F99EC',
+    thesis:'Superconducting quantum computing — different technology from IonQ. Earlier stage, higher risk. 108-qubit system had a delay in Jan 2026, causing a stock drop. Smaller revenue base than IonQ. Pure speculative quantum play.',
+    catalyst:'If superconducting architecture achieves error correction breakthroughs, massive upside. But IonQ is ahead commercially and Rigetti has more execution risk. Complementary to IonQ — both could win as the quantum sector matures.',
+    current:'~$8 (Mar 2026)',
+    analysts:'Highly speculative. Last resort for quantum exposure — IonQ is the better risk-adjusted quantum bet.'
+  }
+];
+
+let currentHorizon = 3;
+
+function setHorizon(h, btn){
+  currentHorizon = h;
+  document.querySelectorAll('.horizon button').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+}
+
+function filterCat(cat, btn){
+  activeCat = cat;
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function toggle(id){
+  const el = document.getElementById('d'+id);
+  if(el) el.classList.toggle('open');
+}
+
+function render(){
+  const h = currentHorizon;
+  let list = stocks;
+  if(activeCat !== 'all') list = stocks.filter(s => s.cat === activeCat);
+
+  // re-rank by current horizon upside
+  const sorted = [...list].sort((a,b) => (h===3 ? b.up3-a.up3 : b.up5-a.up5));
+
+  const container = document.getElementById('list');
+  container.innerHTML = sorted.map((s,i) => {
+    const up = h===3 ? s.up3 : s.up5;
+    const bar = h===3 ? s.bar3 : s.bar5;
+    const rankCls = i < 3 ? 'rank t3' : 'rank';
+    return `
+    <div class="row" onclick="toggle('${s.ticker}')">
+      <div class="${rankCls}">${i+1}</div>
+      <div class="info">
+        <div class="top">
+          <span class="ticker-lbl">${s.ticker}</span>
+          <span class="name-lbl">${s.name}</span>
+          <div class="badges">
+            <span class="badge ${s.catCls}">${s.cat}</span>
+            <span class="badge ${s.riskCls}">${s.risk} Risk</span>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-bg"><div class="bar-fg" style="width:${bar}%;background:${s.color}"></div></div>
+        </div>
+        <div class="meta">
+          <span>Current: ${s.current}</span>
+          <span>Click for full thesis ↓</span>
+        </div>
+        <div class="detail" id="d${s.ticker}">
+          <strong>Investment thesis:</strong> ${s.thesis}<br><br>
+          <strong>Key catalyst / risk:</strong> ${s.catalyst}<br><br>
+          <strong>Analyst view:</strong> ${s.analysts}
+        </div>
+      </div>
+      <div class="upside">
+        <div class="upside-3" style="color:${up>=200?'var(--color-text-success)':up>=100?'var(--color-text-warning)':'var(--color-text-primary)'}">+${up}%</div>
+        <div class="upside-5">${h===3?'3yr est.':'5yr est.'}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+render();
+</script>
