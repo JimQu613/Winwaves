@@ -1,0 +1,141 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1.5rem 0;font-family:var(--font-sans)}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:1.5rem;font-size:12px}
+.leg-item{display:flex;align-items:center;gap:6px;color:var(--color-text-secondary)}
+.leg-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.timeline{position:relative;padding-left:0}
+.year-group{margin-bottom:0}
+.year-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);padding:12px 0 4px;border-top:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:8px}
+.era-tag{font-size:10px;padding:1px 8px;border-radius:10px;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.events{display:flex;flex-direction:column;gap:5px;padding-bottom:6px}
+.event{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;border-radius:6px;background:var(--color-background-secondary);border-left:3px solid transparent;font-size:12px;line-height:1.5;color:var(--color-text-primary)}
+.event.lipton{border-left-color:#BA7517}
+.event.chali{border-left-color:#1D9E75}
+.event.xgt{border-left-color:#D85A30}
+.event.all{border-left-color:#534AB7}
+.event-brand{font-size:10px;font-weight:500;padding:1px 7px;border-radius:10px;white-space:nowrap;flex-shrink:0;align-self:flex-start;margin-top:1px}
+.brand-lipton{background:#FAEEDA;color:#633806}
+.brand-chali{background:#E1F5EE;color:#0F6E56}
+.brand-xgt{background:#FAECE7;color:#993C1D}
+.brand-all{background:#EEEDFE;color:#534AB7}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.fbtn{font-size:11px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all .15s}
+.fbtn.on{border-color:transparent}
+.fbtn-all.on{background:#EEEDFE;color:#534AB7}
+.fbtn-lipton.on{background:#FAEEDA;color:#633806}
+.fbtn-chali.on{background:#E1F5EE;color:#0F6E56}
+.fbtn-xgt.on{background:#FAECE7;color:#993C1D}
+</style>
+<div class="wrap">
+<div class="legend">
+  <span class="leg-item"><span class="leg-dot" style="background:#BA7517"></span>立顿 Lipton</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#1D9E75"></span>茶里 CHALI</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#D85A30"></span>小罐茶</span>
+  <span class="leg-item"><span class="leg-dot" style="background:#534AB7"></span>行业大事</span>
+</div>
+<div class="filters">
+  <button class="fbtn fbtn-all on" onclick="filter('all',this)">全部</button>
+  <button class="fbtn fbtn-lipton" onclick="filter('lipton',this)">立顿</button>
+  <button class="fbtn fbtn-chali" onclick="filter('chali',this)">茶里</button>
+  <button class="fbtn fbtn-xgt" onclick="filter('xgt',this)">小罐茶</button>
+</div>
+<div id="tl"></div>
+</div>
+<script>
+const data = [
+  {year:'1890s', era:'品牌起源', events:[
+    {brand:'lipton', label:'立顿', text:'英国人托马斯·立顿创立品牌，在锡兰（斯里兰卡）直接采购茶叶，以"从茶园直接到茶壶"为理念，革命性地推出标准化预包装茶叶，颠覆英国茶叶散装销售惯例。'},
+    {brand:'lipton', label:'立顿', text:'1898年，英国女王维多利亚授予托马斯·立顿爵士封号，立顿红茶荣获"世界红茶之王"称号，品牌走向国际。'},
+  ]},
+  {year:'1972', era:'联合利华时代开启', events:[
+    {brand:'lipton', label:'立顿', text:'联合利华收购立顿，立顿进入跨国快消帝国体系，借助联合利华遍布全球的分销网络快速扩张，覆盖100余个国家和地区。'},
+  ]},
+  {year:'1991', era:'即饮创新', events:[
+    {brand:'lipton', label:'立顿', text:'联合利华与百事可乐成立合资公司，推出立顿瓶装即饮冰红茶，迅速席卷欧美市场，开创了茶叶即饮品类的全球化浪潮。'},
+  ]},
+  {year:'1992', era:'进入中国', events:[
+    {brand:'lipton', label:'立顿', text:'立顿随沃尔玛、家乐福进入中国市场，瞄准"不怎么喝茶"的年轻白领群体，凭借亮黄包装、干净安全形象，5年内拿下中国袋泡茶市场60%以上份额。'},
+    {brand:'all', label:'行业', text:'中茶总公司改制，云南、福建等四大省茶公司民营化，中国茶行业商业化进程正式开启，第一代本土茶品牌开始涌现。'},
+  ]},
+  {year:'1999', era:'立顿巅峰期', events:[
+    {brand:'lipton', label:'立顿', text:'立顿在华销售额和市场份额双项第一，"袋泡茶=立顿"成为消费认知，品牌统治力达到顶峰，"7万中国茶企比不上一个立顿"的说法在行业广泛流传。'},
+  ]},
+  {year:'2005', era:'工厂扩张', events:[
+    {brand:'lipton', label:'立顿', text:'联合利华投资5000万美元在合肥建设"世界上最大的茶叶生产工厂"，进一步压低成本，巩固规模优势，产品线扩展至200+SKU。'},
+  ]},
+  {year:'2012', era:'新品牌崛起', events:[
+    {brand:'xgt', label:'小罐茶', text:'创始人杜国楹（曾操盘背背佳、好记星、8848手机等爆款）完成2年寻茶之旅，洞察中国高端礼品茶市场空白——烟有中华、酒有茅台，茶却没有公认的高端品牌，小罐茶由此诞生。'},
+    {brand:'lipton', label:'立顿', text:'立顿曝出农药残留丑闻，绿茶、茉莉花茶、铁观音样本重金属超标，"干净安全"的品牌形象受到严重冲击，中国年轻消费者信任度大打折扣。'},
+    {brand:'all', label:'行业', text:'中国茶叶线上市场开始起步，天猫茶叶类目快速增长，为新品牌提供低成本获客渠道，电商改变了传统茶行业以线下门店和礼品渠道为主的格局。'},
+  ]},
+  {year:'2013', era:'茶里诞生', events:[
+    {brand:'chali', label:'茶里', text:'营销人出身的谭琼在广州注册"广州茶里电子商务有限公司"，花4个月系统学习茶学知识，创立CHALI茶里，以原叶三角袋泡茶切入市场，定位"最懂中国年轻人"的现代中国茶品牌。'},
+    {brand:'chali', label:'茶里', text:'茶里借鉴立顿袋泡茶模式，将其升级——用可降解玉米纤维茶包替代无纺布，用整叶原茶替代碎茶末，开发蜜桃乌龙等年轻化口味，推出首批8个SKU。'},
+  ]},
+  {year:'2016', era:'小罐茶上市爆发', events:[
+    {brand:'xgt', label:'小罐茶', text:'小罐茶正式上市，产品定价50元/罐（约6250元/斤），聘请苹果体验店御用设计师Tim Kobe打造线下体验店，日本设计师神原秀夫操刀包装，"小罐茶，大师作"央视广告强力轰炸，一夜引爆市场。'},
+    {brand:'xgt', label:'小罐茶', text:'品牌首年销量达11亿元，2018年突破20亿，一跃成为中国茶叶品牌零售额第一，验证了高端礼品茶品牌的市场需求。'},
+  ]},
+  {year:'2018', era:'各自遇到转折', events:[
+    {brand:'chali', label:'茶里', text:'茶里连续三年获天猫双11花草茶类目第一，在全国开设6家线下体验店，蜜桃乌龙年销售量从几百公斤激增至50吨，品牌成为新一代袋泡茶代名词。'},
+    {brand:'lipton', label:'立顿', text:'全球销量相比2014年已减少约8%，增长动力全面衰竭。联合利华开始在华布局差异化策略，推出遵义红茶、黄山绿茶等产地化产品，试图高端化转型。'},
+    {brand:'xgt', label:'小罐茶', text:'"大师作"真实性遭受质疑——"大师每天要做多少小时的茶才够20亿销量？"，品牌陷入信任危机，"智商税"标签开始在社交媒体蔓延。'},
+  ]},
+  {year:'2019-2020', era:'疫情与资本浪潮', events:[
+    {brand:'chali', label:'茶里', text:'茶里年营收首次突破1.5亿，疫情期间直播电商红利大爆发，蜜桃乌龙一晚卖出8万盒，全网粉丝超1000万，吸引碧桂园创投、纪源资本等亿级融资。'},
+    {brand:'xgt', label:'小罐茶', text:'小罐茶收入缩减至约10亿元，此后不再公布销售数据，开始"平台化"战略转型，推出多泡装、彩罐系列，布局大众市场。'},
+    {brand:'all', label:'行业', text:'新式茶饮（喜茶、奈雪等）爆发，现制茶饮与袋泡茶竞争加剧；农夫山泉东方树叶无糖茶开始爆发式增长，行业格局进入多线作战时代。'},
+  ]},
+  {year:'2021', era:'立顿被出售', events:[
+    {brand:'lipton', label:'立顿', text:'联合利华正式宣布以45亿欧元将全球茶叶业务"ekaterra"（含34个品牌，含立顿）出售给欧洲私募巨头CVC Capital Partners，联合利华彻底告别"全球最大茶企"称号。'},
+    {brand:'chali', label:'茶里', text:'茶里2021年618夺天猫、京东茶类目双冠王，全年销售额破亿，业内人士透露国内袋泡茶销量已赶超立顿，成为中国袋泡茶事实第一品牌。'},
+    {brand:'all', label:'行业', text:'东方树叶无糖茶爆发，农夫山泉茶饮料业务增速连续三年超50%，无糖茶赛道成为整个饮料行业最确定的结构性机会，吸引所有玩家入局。'},
+  ]},
+  {year:'2022', era:'战略误判期', events:[
+    {brand:'chali', label:'茶里', text:'茶里在广州南沙建成冷灌装智能生产线（时产2.6万瓶），高调进军瓶装即饮茶，推出鸭屎香单丛茶等高端瓶装茶，宣称"两年内超越三得利在华份额"。'},
+    {brand:'xgt', label:'小罐茶', text:'杜国楹坦言"小罐茶成立十年没赚到一分钱"，公司重投15亿建设黄山超级工厂，尝试全产业链工业化；营销端开始反思，逐步收缩大师概念。'},
+    {brand:'lipton', label:'立顿', text:'正式从联合利华剥离，作为独立公司"Lipton Teas and Infusions"运营，CEO Nathalie Roos上任后大刀阔斧削减SKU（从13000减至不足3000），力图高端化转型。'},
+  ]},
+  {year:'2023-2024', era:'分化加剧', events:[
+    {brand:'lipton', label:'立顿', text:'2023年收入17.4亿欧元，远低于出售前20亿欧元，2024年进一步跌至15.7亿欧元，净利润同比下滑8.6%，一年两度更换CEO，品牌颓势明显。'},
+    {brand:'chali', label:'茶里', text:'瓶装茶业务全面失败，银行抽贷引发资金链断裂，拖欠员工薪资、公积金，多位高管卸任，线下门店关闭，创始人被限制高消费，公司陷入生存危机。'},
+    {brand:'xgt', label:'小罐茶', text:'高端市场遇冷，门店从1002家缩减至626家（闭店率37.5%），大师作争议余波未止，2024年6月杜国楹公开道歉，宣布135项专利无偿开源，同时宣布进军无糖茶饮料赛道。'},
+    {brand:'all', label:'行业', text:'无糖茶饮料市场规模突破400亿元，东方树叶以65%份额制霸，农夫山泉茶饮料收入达167.5亿成第一大业务；中国茶叶内销总额达3257.6亿，品牌专营店增长超15%。'},
+  ]},
+  {year:'2025-2026', era:'行业重构期（当下）', events:[
+    {brand:'chali', label:'茶里', text:'茶里全面放弃瓶装茶业务，聚焦核心袋泡茶主业生存，南沙工厂接代工订单，裁员精简后寻求重组，能否涅槃仍是未知数。'},
+    {brand:'xgt', label:'小罐茶', text:'三品牌矩阵（小罐茶+年迹+小罐茶园）+泡茶机+无糖茶饮料，形成三轮驱动；全国2000家门店体系重建，推出"敢保真"区块链溯源战略，试图重建消费信任。'},
+    {brand:'lipton', label:'立顿', text:'在华探索新零售路径，尝试艺术联名（与UCCA合作）重塑高端形象，但产品仍依赖茶末原料，与"文化升级"叙事存在巨大落差，复苏路漫漫。'},
+    {brand:'all', label:'行业', text:'预计2025年新式茶饮市场规模突破3749亿元，无糖茶有望突破千亿；霸王茶姬申请美国IPO，中国茶品牌全球化进程加速，茶行业"战国时代"正式开幕。'},
+  ]},
+];
+
+let active = 'all';
+
+function filter(cat, btn){
+  active = cat;
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+}
+
+function render(){
+  const tl = document.getElementById('tl');
+  tl.innerHTML = data.map(g => {
+    const evts = g.events.filter(e => active === 'all' || e.brand === active);
+    if(!evts.length) return '';
+    return `<div class="year-group">
+      <div class="year-label">${g.year} <span class="era-tag">${g.era}</span></div>
+      <div class="events">${evts.map(e => `
+        <div class="event ${e.brand}">
+          <span class="event-brand brand-${e.brand}">${e.label}</span>
+          <span>${e.text}</span>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+render();
+</script>
