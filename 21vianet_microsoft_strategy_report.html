@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世纪互联 × 微软 全球战略合作报告</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f1117;
+    --ink-60: rgba(15,17,23,0.6);
+    --ink-20: rgba(15,17,23,0.12);
+    --paper: #f5f3ee;
+    --paper-2: #ede9e1;
+    --accent: #1a3a6b;
+    --accent-2: #c0392b;
+    --gold: #b8860b;
+    --teal: #0d6e6e;
+    --purple: #4a3580;
+    --coral: #c0452b;
+    --green: #2d6a4f;
+    --amber: #b87333;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  /* ─── PAGE SHELL ─── */
+  .page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 48px;
+    page-break-after: always;
+  }
+
+  /* ─── COVER HEADER ─── */
+  .cover-header {
+    border-top: 3px solid var(--accent);
+    border-bottom: 1px solid var(--ink-20);
+    padding: 32px 0 24px;
+    margin-bottom: 48px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .cover-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.3;
+  }
+
+  .cover-subtitle {
+    font-size: 13px;
+    color: var(--ink-60);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .cover-meta {
+    text-align: right;
+    font-size: 11px;
+    color: var(--ink-60);
+    line-height: 2;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+
+  /* ─── SECTION LABELS ─── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--ink-20);
+  }
+
+  /* ─── INTRO BOX ─── */
+  .intro-box {
+    background: var(--accent);
+    color: #fff;
+    padding: 24px 28px;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  .intro-stat {
+    border-left: 2px solid rgba(255,255,255,0.3);
+    padding-left: 16px;
+  }
+
+  .intro-stat-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .intro-stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+
+  /* ─── 3-COLUMN OPPORTUNITY GRID ─── */
+  .opp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .opp-col-header {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 2px 2px 0 0;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .col-teal .opp-col-header { background: var(--teal); color: #fff; }
+  .col-blue .opp-col-header { background: var(--accent); color: #fff; }
+  .col-coral .opp-col-header { background: var(--coral); color: #fff; }
+
+  .opp-col-body {
+    border: 1px solid var(--ink-20);
+    border-top: none;
+    border-radius: 0 0 2px 2px;
+    overflow: hidden;
+  }
+
+  .opp-item {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ink-20);
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .opp-item:last-child { border-bottom: none; }
+
+  .opp-item-title {
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .opp-item-desc {
+    color: var(--ink-60);
+    font-size: 11.5px;
+  }
+
+  .col-teal .opp-item-title { color: var(--teal); }
+  .col-blue .opp-item-title { color: var(--accent); }
+  .col-coral .opp-item-title { color: var(--coral); }
+
+  /* ─── MECHANISM CARDS ─── */
+  .mechanism-section { margin-bottom: 40px; }
+
+  .mechanism-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .mech-card {
+    border: 1px solid var(--ink-20);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .mech-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--ink-20);
+  }
+
+  .mech-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--accent);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .mech-title {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .mech-body {
+    padding: 12px 14px;
+    font-size: 12.5px;
+    color: var(--ink-60);
+    line-height: 1.65;
+  }
+
+  .mech-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 2px;
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .tag-now { background: #d4edda; color: #155724; }
+  .tag-negotiate { background: #fff3cd; color: #856404; }
+  .tag-longterm { background: #d1ecf1; color: #0c5460; }
+
+  /* ─── PRECONDITIONS ─── */
+  .prereq-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .prereq-card {
+    border-left: 3px solid var(--amber);
+    background: var(--paper-2);
+    padding: 14px 16px;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .prereq-title {
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: var(--amber);
+  }
+
+  .prereq-desc {
+    font-size: 11.5px;
+    color: var(--ink-60);
+    line-height: 1.6;
+  }
+
+  /* ─── PAGE BREAK ─── */
+  .page-break {
+    border-top: 1px solid var(--ink-20);
+    margin: 0 0 48px 0;
+    page-break-before: always;
+    padding-top: 48px;
+  }
+
+  /* ─── PAGE 2: ISV SECTION ─── */
+  .page2-header {
+    border-top: 3px solid var(--purple);
+    border-bottom: 1px solid var(--ink-20);
+    padding: 28px 0 20px;
+    margin-bottom: 40px;
+  }
+
+  .page2-header .cover-title { color: var(--purple); }
+
+  /* ─── ISV CASE STUDIES ─── */
+  .case-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .case-card {
+    border: 1px solid var(--ink-20);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .case-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--purple);
+    color: #fff;
+  }
+
+  .case-name {
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .case-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .case-body { padding: 12px 14px; }
+
+  .case-metric {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .case-metric-val {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--purple);
+    line-height: 1;
+  }
+
+  .case-metric-label {
+    font-size: 12px;
+    color: var(--ink-60);
+  }
+
+  .case-desc {
+    font-size: 12px;
+    color: var(--ink-60);
+    line-height: 1.6;
+    border-top: 1px solid var(--ink-20);
+    padding-top: 8px;
+    margin-top: 8px;
+  }
+
+  /* ─── 7 LAWS GRID ─── */
+  .laws-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .law-card {
+    display: flex;
+    gap: 12px;
+    border: 1px solid var(--ink-20);
+    border-radius: 2px;
+    padding: 14px;
+  }
+
+  .law-num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--purple);
+    opacity: 0.25;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 32px;
+  }
+
+  .law-content {}
+
+  .law-title {
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .law-desc {
+    font-size: 12px;
+    color: var(--ink-60);
+    line-height: 1.6;
+  }
+
+  .law-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 2px;
+    margin-top: 5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tag-core { background: var(--purple); color: #fff; }
+  .tag-channel { background: #e8e0f5; color: var(--purple); }
+  .tag-ai { background: var(--teal); color: #fff; }
+  .tag-incentive { background: #fff0e0; color: var(--amber); }
+  .tag-perf { background: #fde8e8; color: var(--coral); }
+
+  /* ─── CHINA ISV GAP TABLE ─── */
+  .gap-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 12.5px;
+  }
+
+  .gap-table th {
+    background: var(--ink);
+    color: #fff;
+    padding: 9px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+  }
+
+  .gap-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--ink-20);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  .gap-table tr:nth-child(even) td { background: var(--paper-2); }
+
+  .gap-barrier { color: var(--coral); font-weight: 500; }
+  .gap-lever { color: var(--green); font-weight: 500; }
+
+  /* ─── ISV PRIORITY BOX ─── */
+  .priority-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .priority-card {
+    border-radius: 2px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .p-purple { background: var(--purple); color: #fff; }
+  .p-teal { background: var(--teal); color: #fff; }
+  .p-blue { background: var(--accent); color: #fff; }
+  .p-coral { background: var(--coral); color: #fff; }
+
+  .priority-type {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .priority-examples {
+    font-size: 11px;
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+
+  /* ─── FOOTER ─── */
+  .report-footer {
+    border-top: 1px solid var(--ink-20);
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .footer-left {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-60);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-right {
+    font-size: 11px;
+    color: var(--ink-60);
+  }
+
+  /* ─── HIGHLIGHT STRIP ─── */
+  .highlight-strip {
+    background: var(--paper-2);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin: 16px 0 24px;
+    font-size: 12.5px;
+    color: var(--ink);
+    border-radius: 0 2px 2px 0;
+    line-height: 1.65;
+  }
+
+  .highlight-strip strong { color: var(--accent); }
+
+  .highlight-strip.purple {
+    border-left-color: var(--purple);
+  }
+  .highlight-strip.purple strong { color: var(--purple); }
+
+  /* ─── PRINT ─── */
+  @media print {
+    body { background: #fff; }
+    .page { padding: 40px 36px; }
+    .page-break { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     PAGE 1 — 全球战略合作框架
+══════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="cover-header">
+    <div>
+      <div class="cover-title">世纪互联 × 微软<br>全球战略合作扩展框架</div>
+      <div class="cover-subtitle">出海算力 · AI产品协同 · 合作伙伴生态 · 落地资源与杠杆</div>
+    </div>
+    <div class="cover-meta">
+      CONFIDENTIAL STRATEGY BRIEF<br>
+      April 2026<br>
+      21Vianet Blue Cloud<br>
+      内部战略讨论用
+    </div>
+  </div>
+
+  <!-- 宏观数字 -->
+  <div class="intro-box">
+    <div class="intro-stat">
+      <div class="intro-stat-num">3位数</div>
+      <div class="intro-stat-label">微软云中国市场连续多年营收增速，AI + 出海双轮驱动</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num">$1,050亿</div>
+      <div class="intro-stat-label">微软2026年全球AI基础设施资本支出预算（同比+64%）</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num">50万+</div>
+      <div class="intro-stat-label">微软全球合作伙伴网络规模，月均6M+访客浏览Marketplace</div>
+    </div>
+  </div>
+
+  <!-- 三大战略维度 -->
+  <div class="section-label">SECTION 01</div>
+  <div class="section-title">三大战略合作维度</div>
+
+  <div class="opp-grid">
+
+    <!-- 出海算力 -->
+    <div class="col-teal">
+      <div class="opp-col-header">① 出海算力服务</div>
+      <div class="opp-col-body">
+        <div class="opp-item">
+          <div class="opp-item-title">中国企业出海算力通道</div>
+          <div class="opp-item-desc">为出海企业提供 Azure 全球算力专属接入，弥补中国区与全球区的账户断层</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">跨境混合云架构桥梁</div>
+          <div class="opp-item-desc">数据留中国区，AI推理跑全球节点，一致体验、一张合同</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">外资企业入华合规支撑</div>
+          <div class="opp-item-desc">支持跨国企业以合规方式在中国落地 Azure 工作负载</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">全球 GPU 配额协商</div>
+          <div class="opp-item-desc">以聚合需求为筹码，向微软全球谈判 H100/H200 优先算力池</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI产品协同 -->
+    <div class="col-blue">
+      <div class="opp-col-header">② AI 产品协同</div>
+      <div class="opp-col-body">
+        <div class="opp-item">
+          <div class="opp-item-title">Copilot 中国区加速落地</div>
+          <div class="opp-item-desc">以三位数增长数据为筹码，向微软争取 Copilot 功能优先同步中国区</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">AI Agent 企业落地包</div>
+          <div class="opp-item-desc">联合 Copilot Studio，面向金融、制造、医疗打造行业 Agent 方案</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">国产模型 + Azure 混合部署</div>
+          <div class="opp-item-desc">DeepSeek 等模型权重在中国区，推理弹性跑全球 Azure 算力</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">Azure AI Foundry 本地化</div>
+          <div class="opp-item-desc">协助微软加速 AI Foundry 中国区功能对等，成为首选部署方</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 合作伙伴生态 -->
+    <div class="col-coral">
+      <div class="opp-col-header">③ 合作伙伴生态</div>
+      <div class="opp-col-body">
+        <div class="opp-item">
+          <div class="opp-item-title">微软 MPN 生态深度参与</div>
+          <div class="opp-item-desc">从被动运营商升级为主动的 Solutions Partner，锁定顶级资质</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">OCP 大客户联合销售</div>
+          <div class="opp-item-desc">进入微软 One Commercial Partner 体系，共享大客户销售机会</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">ISV 落地中国（CLIC策略升级）</div>
+          <div class="opp-item-desc">反向引入全球 SaaS ISV 在中国区落地，同时帮中国 ISV 推向全球 Marketplace</div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-item-title">全球活动杠杆</div>
+          <div class="opp-item-desc">在 Microsoft Inspire / Build 上打造中国出海专题，扩大品牌声量</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 出海算力具体机制 -->
+  <div class="section-label">SECTION 02</div>
+  <div class="section-title">出海算力通道：三层落地机制</div>
+
+  <div class="mechanism-grid">
+    <div class="mech-card">
+      <div class="mech-card-head">
+        <div class="mech-num">1</div>
+        <div class="mech-title">双账户托管服务</div>
+      </div>
+      <div class="mech-body">
+        世纪互联作为 Managed Service Provider，代理管理客户的 Azure Global 账户，提供中文支持与账单整合。无需修改现有协议即可落地。
+        <br><span class="mech-tag tag-now">现在可做</span>
+      </div>
+    </div>
+    <div class="mech-card">
+      <div class="mech-card-head">
+        <div class="mech-num">2</div>
+        <div class="mech-title">需求聚合 → 配额优先</div>
+      </div>
+      <div class="mech-body">
+        聚合100+出海企业 GPU 需求，形成集团采购池，以规模承诺换取微软全球 H100/H200 优先配额，单企业无法单独谈判的条件集体实现。
+        <br><span class="mech-tag tag-now">现在可做</span>
+      </div>
+    </div>
+    <div class="mech-card">
+      <div class="mech-card-head">
+        <div class="mech-num">3</div>
+        <div class="mech-title">统一 OSPA 跨区条款</div>
+      </div>
+      <div class="mech-body">
+        参考 Azure Stack 混合云 OSPA 模型，谈判将中国区与全球区算力消费合并在同一承诺合同下，客户一张合同、一个账单，世纪互联内部分配区域。
+        <br><span class="mech-tag tag-negotiate">需与微软谈判</span>
+      </div>
+    </div>
+    <div class="mech-card">
+      <div class="mech-card-head">
+        <div class="mech-num">4</div>
+        <div class="mech-title">账户信用跨区继承</div>
+      </div>
+      <div class="mech-body">
+        要求微软全球区认可中国区消费历史与信用评级，免除全球区 GPU 高级实例从零开始的资质审核等待期（目前可能长达数周）。
+        <br><span class="mech-tag tag-negotiate">需与微软谈判</span>
+      </div>
+    </div>
+    <div class="mech-card">
+      <div class="mech-card-head">
+        <div class="mech-num">5</div>
+        <div class="mech-title">出海架构标准化路线图</div>
+      </div>
+      <div class="mech-body">
+        针对游戏、电商、SaaS 出海等主流场景，预设"中国区 + 全球区"参考架构模板，标准化数据路由、身份认证、合规边界，大幅降低客户决策门槛。
+        <br><span class="mech-tag tag-now">现在可做</span>
+      </div>
+    </div>
+    <div class="mech-card">
+      <div class="mech-card-head">
+        <div class="mech-num">6</div>
+        <div class="mech-title">中国出海 AI 算力专区</div>
+      </div>
+      <div class="mech-body">
+        在微软亚太节点（日本东/新加坡）争取"中国客户优先区"，世纪互联在该区域拥有销售代理权和客服权，实质将运营范围延伸至中国境外。
+        <br><span class="mech-tag tag-longterm">长期布局</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 前置资源 -->
+  <div class="section-label">SECTION 03</div>
+  <div class="section-title">落地前置条件</div>
+
+  <div class="prereq-row">
+    <div class="prereq-card">
+      <div class="prereq-title">算力配额专属协议</div>
+      <div class="prereq-desc">需触达微软全球数据中心团队，以承诺规模换取 H100/H200 预留实例，不能只依赖中国区微软推动</div>
+    </div>
+    <div class="prereq-card">
+      <div class="prereq-title">跨境合规法律框架</div>
+      <div class="prereq-desc">数据跨境流动、AI 模型出口管制、数据安全法适用场景，需法律团队预先设计，否则产品设计反复受阻</div>
+    </div>
+    <div class="prereq-card">
+      <div class="prereq-title">英文技术售前能力</div>
+      <div class="prereq-desc">服务出海企业和外资入华客户，需全英文技术交流和方案设计能力，是蓝云体系当前的能力短板</div>
+    </div>
+  </div>
+
+  <!-- 下一步讨论点 -->
+  <div class="section-label">SECTION 04</div>
+  <div class="section-title">五大下一步讨论点</div>
+
+  <div class="highlight-strip">
+    <strong>① 算力优先级保障协议</strong>——与微软谈判"中国客户 SLA 级别算力分配机制"，以规模承诺换配额优先
+  </div>
+  <div class="highlight-strip">
+    <strong>② 出海企业云上云标准路径</strong>——从中国区 Azure 无缝扩展至全球区，设计可复制的产品路线图
+  </div>
+  <div class="highlight-strip">
+    <strong>③ 推动 Copilot 中国区功能对等</strong>——以三位数增长为筹码，向微软产品团队争取功能优先级
+  </div>
+  <div class="highlight-strip">
+    <strong>④ 联合 OCP 建立"中国独角兽出海"专项计划</strong>——锁定高价值客群，提高在微软内部的战略显著度
+  </div>
+  <div class="highlight-strip">
+    <strong>⑤ 探索亚太市场运营延伸</strong>——将中国合规运营经验输出，协助微软在东南亚建立类似本地运营模式
+  </div>
+
+  <div class="report-footer">
+    <div class="footer-left">21VIANET BLUE CLOUD · STRATEGY · PAGE 1 OF 2</div>
+    <div class="footer-right">内部战略讨论材料 · 请勿对外传阅</div>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════
+     PAGE 2 — Marketplace ISV 成功法则
+══════════════════════════════════════════ -->
+<div class="page">
+
+  <div class="page2-header cover-header">
+    <div>
+      <div class="cover-title">微软 Marketplace ISV 成功解析<br>及中国 ISV 出海机遇</div>
+      <div class="cover-subtitle">全球标杆案例 · 七大成功法则 · 中国 ISV 差距与世纪互联杠杆</div>
+    </div>
+    <div class="cover-meta">
+      CONFIDENTIAL STRATEGY BRIEF<br>
+      April 2026<br>
+      21Vianet Blue Cloud<br>
+      内部战略讨论用
+    </div>
+  </div>
+
+  <!-- 标杆案例 -->
+  <div class="section-label">SECTION 01</div>
+  <div class="section-title">全球头部 ISV 标杆案例</div>
+
+  <div class="case-row">
+    <div class="case-card">
+      <div class="case-card-head">
+        <div class="case-name">Palo Alto Networks</div>
+        <div class="case-badge">网络安全</div>
+      </div>
+      <div class="case-body">
+        <div class="case-metric">
+          <div class="case-metric-val">300%+</div>
+          <div class="case-metric-label">年度 Marketplace 交易额增长</div>
+        </div>
+        <div class="case-desc">早期 Marketplace 采用者，将全线安全产品通过 Marketplace 可交易上架。客户可用 Azure 预承诺预算采购，大幅缩短采购周期。从 SMB 到大型企业全覆盖。</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <div class="case-card-head">
+        <div class="case-name">Snowflake</div>
+        <div class="case-badge">数据平台</div>
+      </div>
+      <div class="case-body">
+        <div class="case-metric">
+          <div class="case-metric-val">$10亿+</div>
+          <div class="case-metric-label">通过 Marketplace 累计收入（首批达成的 ISV 之一）</div>
+        </div>
+        <div class="case-desc">把数据仓库做成纯 SaaS、深度绑定 MACC 预算抵扣机制，微软销售团队因配额挂钩主动推广。Azure 上的 Databricks 与 Snowflake 均在最新微软财报中被点名加速增长。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-row">
+    <div class="case-card">
+      <div class="case-card-head" style="background: var(--teal);">
+        <div class="case-name">LawToolBox</div>
+        <div class="case-badge">法律科技 SaaS</div>
+      </div>
+      <div class="case-body">
+        <div class="case-metric" style="--purple: var(--teal);">
+          <div class="case-metric-val" style="color: var(--teal);">105%</div>
+          <div class="case-metric-label">ISV + CSP 搭档后 2 个月内许可证增长</div>
+        </div>
+        <div class="case-desc">与 CSP 合作伙伴 Pax8 配对后，利用 Pax8 的全球经销商网络快速放量，没有建立自己的销售团队。展示了 ISV + CSP 渠道组合的杠杆效应。</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <div class="case-card-head" style="background: var(--teal);">
+        <div class="case-name">Nimble CRM</div>
+        <div class="case-badge">CRM SaaS</div>
+      </div>
+      <div class="case-body">
+        <div class="case-metric" style="--purple: var(--teal);">
+          <div class="case-metric-val" style="color: var(--teal);">22国</div>
+          <div class="case-metric-label">全球扩展，零人员新增</div>
+        </div>
+        <div class="case-desc">与 CSP 合作伙伴 Sherweb 合作，实现跨 22 个国家扩展，不需要额外雇佣一名员工。"P2P co-sell 的结果让我们在不招人的情况下完成了全球化。"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 七大成功法则 -->
+  <div class="section-label">SECTION 02</div>
+  <div class="section-title">Microsoft Marketplace ISV 七大成功法则</div>
+
+  <div class="laws-grid">
+    <div class="law-card">
+      <div class="law-num">①</div>
+      <div class="law-content">
+        <div class="law-title">可交易上架（Transactable）</div>
+        <div class="law-desc">不可交易的产品，微软销售不会有任何动力推广。Transactable 是解锁 Co-sell、MACC 抵扣、激励奖励的前提，没有例外。</div>
+        <div class="law-tag tag-core">核心前提</div>
+      </div>
+    </div>
+    <div class="law-card">
+      <div class="law-num">②</div>
+      <div class="law-content">
+        <div class="law-title">绑定 MACC 预算抵扣</div>
+        <div class="law-desc">企业客户已预承诺 Azure 消费额，ISV 产品若可抵扣该金额，采购等于"花掉已花的钱"，审批阻力极低，是最强的大客户促成机制。</div>
+        <div class="law-tag tag-core">成交加速器</div>
+      </div>
+    </div>
+    <div class="law-card">
+      <div class="law-num">③</div>
+      <div class="law-content">
+        <div class="law-title">激活 Co-sell 机制</div>
+        <div class="law-desc">微软销售卖方的配额与 ISV 的 Marketplace 交易额直接挂钩，获得 Co-sell 资质 = 免费获得一支全球销售军队，主动为你推客户。</div>
+        <div class="law-tag tag-core">销售杠杆</div>
+      </div>
+    </div>
+    <div class="law-card">
+      <div class="law-num">④</div>
+      <div class="law-content">
+        <div class="law-title">ISV + CSP 渠道组合</div>
+        <div class="law-desc">授权 Pax8、TD Synnex 等全球 CSP 转售，无需自建销售团队即可覆盖全球市场。LawToolBox 105% 增长、Nimble 进入 22 国均走此路径。</div>
+        <div class="law-tag tag-channel">渠道杠杆</div>
+      </div>
+    </div>
+    <div class="law-card">
+      <div class="law-num">⑤</div>
+      <div class="law-content">
+        <div class="law-title">AI 产品获优先曝光</div>
+        <div class="law-desc">2025年9月统一 Marketplace 后，AI Apps & Agents 专区已有 3000+ 方案。与 Copilot 集成的产品可直接在 Microsoft 365 和 Azure 界面内嵌发现，流量优势显著。</div>
+        <div class="law-tag tag-ai">AI 红利</div>
+      </div>
+    </div>
+    <div class="law-card">
+      <div class="law-num">⑥</div>
+      <div class="law-content">
+        <div class="law-title">最大化 ISV Success 激励</div>
+        <div class="law-desc">合格 ISV 可获高达 $128,000 资源包（Azure 信用 + 工具 + 咨询）；AI/Analytics 类产品额外可获 $10万 现金奖励；年交易额达 $4M 再加 $5万 返利。</div>
+        <div class="law-tag tag-incentive">资源红利</div>
+      </div>
+    </div>
+    <div class="law-card">
+      <div class="law-num">⑦</div>
+      <div class="law-content">
+        <div class="law-title">绩效导向：评分与留存驱动晋级</div>
+        <div class="law-desc">FY25起，只有产品评分 4.5+、有复购记录、有客户案例佐证的 ISV，才能进入最高激励层。参与是门槛，成果才是货币。</div>
+        <div class="law-tag tag-perf">绩效导向</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 中国ISV差距 -->
+  <div class="section-label">SECTION 03</div>
+  <div class="section-title">中国 ISV 现状差距与世纪互联的杠杆</div>
+
+  <div class="highlight-strip purple">
+    <strong>坦诚评估</strong>：目前中国 ISV 在微软全球 Marketplace 几乎没有可验证的成功 B2B 案例。微软中国区负责人亦坦承，微软在中国合作伙伴生态的短板正是缺乏具有全球化服务能力的合作伙伴——这既是差距，也是世纪互联的机会窗口。
+  </div>
+
+  <table class="gap-table">
+    <thead>
+      <tr>
+        <th width="22%">障碍类型</th>
+        <th width="38%">具体问题</th>
+        <th width="40%">世纪互联的应对杠杆</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="gap-barrier">账号体系隔离</span></td>
+        <td>中国区 Azure 账户无法直接在全球 Marketplace 上架，需重新注册全球区账户</td>
+        <td><span class="gap-lever">双账户托管</span>：以 MSP 身份代理管理客户全球区账户，提供中文支持和合规对接</td>
+      </tr>
+      <tr>
+        <td><span class="gap-barrier">产品英文化不足</span></td>
+        <td>UI、文档、技术支持、客户案例均缺乏英文版，直接影响 Marketplace 评分</td>
+        <td><span class="gap-lever">英文化辅导计划</span>：作为 ISV 上架加速服务，提供产品国际化改造支持</td>
+      </tr>
+      <tr>
+        <td><span class="gap-barrier">Co-sell 流程陌生</span></td>
+        <td>绝大多数中国 ISV 不了解 Co-sell 申请要求、Partner Center 操作流程</td>
+        <td><span class="gap-lever">OCP 关系杠杆</span>：利用世纪互联与微软 OCP 的深度关系，为中国 ISV 快速建立 Co-sell 资质</td>
+      </tr>
+      <tr>
+        <td><span class="gap-barrier">全球客户 Reference 缺失</span></td>
+        <td>进入 Marketplace 头部需要有客户案例，但中国 ISV 缺乏海外客户背书</td>
+        <td><span class="gap-lever">首批客户孵化</span>：以世纪互联自身或现有客户网络为中国 ISV 提供第一批海外试点客户</td>
+      </tr>
+      <tr>
+        <td><span class="gap-barrier">合规与法律壁垒</span></td>
+        <td>数据跨境、出口管制、GDPR 等合规要求对中国 ISV 而言过于复杂</td>
+        <td><span class="gap-lever">合规框架包</span>：预设不同市场（欧洲/东南亚/北美）的合规模板，大幅降低 ISV 进入门槛</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 优先品类 -->
+  <div class="section-label">SECTION 04</div>
+  <div class="section-title">建议优先切入的中国 ISV 品类</div>
+
+  <div class="priority-row">
+    <div class="priority-card p-purple">
+      <div class="priority-type">AI SaaS</div>
+      <div class="priority-examples">企业 Agent 工具<br>DeepSeek 衍生应用<br>行业垂直大模型</div>
+    </div>
+    <div class="priority-card p-teal">
+      <div class="priority-type">工业软件</div>
+      <div class="priority-examples">MES / ERP / IoT<br>出海制造业场景<br>振华重工类客户</div>
+    </div>
+    <div class="priority-card p-blue">
+      <div class="priority-type">网络安全</div>
+      <div class="priority-examples">SOC / SIEM 类<br>合规管理工具<br>零信任架构</div>
+    </div>
+    <div class="priority-card p-coral">
+      <div class="priority-type">跨境电商 / 营销科技</div>
+      <div class="priority-examples">独立站工具<br>广告投放优化<br>多语言客服 AI</div>
+    </div>
+  </div>
+
+  <!-- 行动建议 -->
+  <div class="highlight-strip purple">
+    <strong>世纪互联的核心价值主张</strong>：打造"中国 ISV 全球 Marketplace 加速器"——集合账号托管、英文化辅导、Co-sell 申请、首批客户导入、合规框架为一体的端到端服务，填补中国 ISV 与全球 Marketplace 之间当前的结构性空白。这不只是增值服务，而是可规模化的新业务方向，也是强化世纪互联在微软全球生态中不可替代性的核心杠杆。
+  </div>
+
+  <div class="report-footer">
+    <div class="footer-left">21VIANET BLUE CLOUD · STRATEGY · PAGE 2 OF 2</div>
+    <div class="footer-right">内部战略讨论材料 · 请勿对外传阅</div>
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>
